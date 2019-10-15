@@ -16,9 +16,12 @@ extra-source-files:  ChangeLog.md, README.md
 cabal-version:       >=1.10
 
 library
-  exposed-modules:     Lex, Parser, Rules
+  exposed-modules:     Lex, Parser, Rules, TH
   -- other-modules:
   -- other-extensions:
-  build-depends:       base >=4.11 && <4.12, containers >=0.5 && <0.6
+  build-depends:       base >=4.11 && <4.12
+                     , containers >=0.5 && <0.6
+                     , parsec
+                     , template-haskell
   -- hs-source-dirs:
   default-language:    Haskell2010

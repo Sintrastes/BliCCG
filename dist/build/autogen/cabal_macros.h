@@ -33,6 +33,28 @@
   (major1) == 0 && (major2) == 5 && (minor) <= 11)
 #endif /* MIN_VERSION_containers */
 
+/* package parsec-3.1.13.0 */
+#ifndef VERSION_parsec
+#define VERSION_parsec "3.1.13.0"
+#endif /* VERSION_parsec */
+#ifndef MIN_VERSION_parsec
+#define MIN_VERSION_parsec(major1,major2,minor) (\
+  (major1) <  3 || \
+  (major1) == 3 && (major2) <  1 || \
+  (major1) == 3 && (major2) == 1 && (minor) <= 13)
+#endif /* MIN_VERSION_parsec */
+
+/* package template-haskell-2.13.0.0 */
+#ifndef VERSION_template_haskell
+#define VERSION_template_haskell "2.13.0.0"
+#endif /* VERSION_template_haskell */
+#ifndef MIN_VERSION_template_haskell
+#define MIN_VERSION_template_haskell(major1,major2,minor) (\
+  (major1) <  2 || \
+  (major1) == 2 && (major2) <  13 || \
+  (major1) == 2 && (major2) == 13 && (minor) <= 0)
+#endif /* MIN_VERSION_template_haskell */
+
 /* tool alex-3.2.4 */
 #ifndef TOOL_VERSION_alex
 #define TOOL_VERSION_alex "3.2.4"
@@ -188,10 +210,10 @@
 #endif /* MIN_TOOL_VERSION_strip */
 
 #ifndef CURRENT_PACKAGE_KEY
-#define CURRENT_PACKAGE_KEY "HaskellCCG-0.1.0.0-K5Tkj80ihMw53eAOdeYz8G"
+#define CURRENT_PACKAGE_KEY "HaskellCCG-0.1.0.0-6s14uMoO7DD8orxhiKkvQB"
 #endif /* CURRENT_PACKAGE_KEY */
 #ifndef CURRENT_COMPONENT_ID
-#define CURRENT_COMPONENT_ID "HaskellCCG-0.1.0.0-K5Tkj80ihMw53eAOdeYz8G"
+#define CURRENT_COMPONENT_ID "HaskellCCG-0.1.0.0-6s14uMoO7DD8orxhiKkvQB"
 #endif /* CURRENT_COMPONENT_ID */
 #ifndef CURRENT_PACKAGE_VERSION
 #define CURRENT_PACKAGE_VERSION "0.1.0.0"

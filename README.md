@@ -1,5 +1,5 @@
-# HaskellCCG
-A CCG parser library written in Haskell with a CYK parsing algorithm.
+# BliCCG
+A CCG parser library written in Haskell with a CYK parsing algorithm, for use in Bedelibry.
 
 ## Usage
 I hope to make the interface a bit more intuitive in the future, but for the time being, this is a rough guide to using the library.
@@ -30,3 +30,5 @@ The parser will return an empty list if it fails to find a valid parse or it wil
 The CYK parsing algorithm used here is an adaptation of the algorithm developed by [Peter Ljunglöf](https://github.com/heatherleaf).
 See his [original repo](https://github.com/heatherleaf/haskell-functional-parsing) for the more generalized algorithm.
 Those further interested in this algorithm or other Haskell parsing algorithms are encouraged to consult his excellent [thesis](http://www.cse.chalmers.se/~peb/pubs/Ljunglof2002a%20-%20Pure%20Functional%20Parsing%20--%20an%20advanced.pdf) on the subject.
+
+Additionally, this code base was originally forked from the [HaskellCCG](https://github.com/agrasley/HaskellCCG) library, written by github user agrasley.

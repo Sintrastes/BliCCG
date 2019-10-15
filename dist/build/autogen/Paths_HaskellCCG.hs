@@ -30,7 +30,7 @@ version = Version [0,1,0,0] []
 bindir, libdir, dynlibdir, datadir, libexecdir, sysconfdir :: FilePath
 
 bindir     = "/home/nate/.cabal/bin"
-libdir     = "/home/nate/.cabal/lib/x86_64-linux-ghc-8.4.4/HaskellCCG-0.1.0.0-K5Tkj80ihMw53eAOdeYz8G"
+libdir     = "/home/nate/.cabal/lib/x86_64-linux-ghc-8.4.4/HaskellCCG-0.1.0.0-6s14uMoO7DD8orxhiKkvQB"
 dynlibdir  = "/home/nate/.cabal/lib/x86_64-linux-ghc-8.4.4"
 datadir    = "/home/nate/.cabal/share/x86_64-linux-ghc-8.4.4/HaskellCCG-0.1.0.0"
 libexecdir = "/home/nate/.cabal/libexec/x86_64-linux-ghc-8.4.4/HaskellCCG-0.1.0.0"
