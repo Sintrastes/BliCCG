@@ -1,4 +1,4 @@
-module Parser (parse) where
+module Parser where
 
 import qualified Data.Map as Map
 import Data.Maybe
@@ -6,13 +6,28 @@ import Data.List
 import Lex
 import Rules
 
+-- | Datastructure used internally here.
 data ParseTree = Leaf String | Cmplx :^ [ParseTree] 
              deriving (Eq, Ord)
 
 instance Show ParseTree where
     show (Leaf a)     = a
-    show (c :^ [x])   = show x
-    show (c :^ trees) = "(" ++ intercalate " " (map show trees) ++ ")"
+    show (c :^ [x])   = show c ++ "^" ++ show x
+    show (c :^ trees) = show c ++ "^" ++ "(" ++ intercalate " " (map show trees) ++ ")"
+
+-- | Datastructure I need for my own processing.
+data ApplicationTree = Id String | Branch [ApplicationTree]
+
+-- | Get all the relevant data from the parse tree.
+toApplicationTree :: ParseTree -> ApplicationTree
+toApplicationTree (Leaf x) = Id x
+toApplicationTree (c :^ xs) = Branch $ map toApplicationTree xs
+
+instance Show ApplicationTree where
+    show (Id a)     = a
+    show (Branch [x])   = show x
+    show (Branch trees) = "(" ++ intercalate " " (map show trees) ++ ")"
+
 
 type Cell   = Map.Map Cmplx [ParseTree]
 type Vector = [(Int, Cell)]
