@@ -1,0 +1,6 @@
+
+import Parser
+import Lex
+
+let l = createLexicon [("I", [CmplxLeaf "NP"]), ("am", [CmplxTree (CmplxTree (CmplxLeaf "S") Back (CmplxLeaf "NP")) Forw (CmplxLeaf "NP")]),("a",[CmplxTree (CmplxLeaf "NP") Forw (CmplxLeaf "N")]),("parser",[CmplxLeaf "N"])]
+

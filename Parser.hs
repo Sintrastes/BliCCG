@@ -2,6 +2,7 @@ module Parser (parse) where
 
 import qualified Data.Map as Map
 import Data.Maybe
+import Data.List
 import Lex
 import Rules
 
@@ -9,8 +10,9 @@ data ParseTree = Leaf String | Cmplx :^ [ParseTree]
              deriving (Eq, Ord)
 
 instance Show ParseTree where
-    show (Leaf a)     = show a
-    show (c :^ trees) = show c ++ "^" ++ show trees
+    show (Leaf a)     = a
+    show (c :^ [x])   = show x
+    show (c :^ trees) = "(" ++ intercalate " " (map show trees) ++ ")"
 
 type Cell   = Map.Map Cmplx [ParseTree]
 type Vector = [(Int, Cell)]
@@ -23,7 +25,7 @@ parse lexicon = process
   where
     process :: [String] -> [ParseTree]
     process input
-        | size == ncell = cell ?? CmplxLeaf S
+        | size == ncell = cell ?? CmplxLeaf "prop"
         | otherwise     = []
       where (size, vectors) = foldl nextInputToken (0, []) input
             (ncell, cell)   = last (last vectors)
