@@ -1,14 +1,23 @@
+{-# LANGUAGE TemplateHaskell, QuasiQuotes #-}
+
+module Example where
 
 import Parser
 import Lex
+import TH
+import Data.List
+
+myList = [("I",      [[cat| entity ]])
+   ,("a",      [[cat| entity/entity |]])
+   ,("am",     [[cat| (prop/entity)\entity |]])
+   ,("parser", [[cat| entity |]])]
+
+myList2 = [("a",      [[cat| entity/entity |]])]
 
 -- Note: This gives two parses, the first of which is invalid.
-lex1 = createLexicon [
-   ("I", [CmplxLeaf "entity"]),
-   ("am", [CmplxTree (CmplxTree (CmplxLeaf "prop") Forw (CmplxLeaf "entity")) Back (CmplxLeaf "entity")]),
-   ("a",[CmplxTree (CmplxLeaf "entity") Forw (CmplxLeaf "entity")]),
-   ("parser",[CmplxLeaf "entity"])
-   ]
+lexEx = createLexicon (myList)
+
+result = Parser.parse lexEx ["I", "am", "a", "parser"]
 
 -- Note: Although, something like this might
 -- actually be good. For instance, we can parse:

@@ -30,21 +30,24 @@ instance Show Cmplx where
 
 cmplxLeafP :: Parser Cmplx
 cmplxLeafP = do
+  try $ many space
   cs <- many $ alphaNum
+  try $ many space
   return $ CmplxLeaf cs
 
 cmplxP :: Parser Cmplx
-cmplxP = do
-  try $ many space
-  x <- try cmplxParensP <|> cmplxLeafP
-  try $ many space
-  res <- (char '/') `eitherP` (char '\\')
-  try $ many space
-  y <- try cmplxParensP <|> cmplxLeafP
-  try $ many space
-  case res of
-    Left  _ -> return $ CmplxTree x Forw y
-    Right _ -> return $ CmplxTree x Back y
+cmplxP = try ( 
+  do try $ many space
+     x <- try cmplxParensP <|> cmplxLeafP
+     try $ many space
+     res <- (char '/') `eitherP` (char '\\')
+     try $ many space
+     y <- try cmplxParensP <|> cmplxLeafP
+     try $ many space
+     case res of
+       Left  _ -> return $ CmplxTree x Forw y
+       Right _ -> return $ CmplxTree x Back y)
+ <|> try cmplxLeafP
 
 parseCmplx :: String -> Either ParseError Cmplx
 parseCmplx str = parse cmplxP "" str
