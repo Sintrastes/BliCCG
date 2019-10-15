@@ -6,7 +6,7 @@ module Lex (Prim(..),
 
 import qualified Data.Map as Map
 
-data Prim  = N | NP | S deriving (Eq, Show, Ord)
+type Prim  = String
 data Slash = Forw | Back deriving (Eq, Ord)
 
 instance Show Slash where
