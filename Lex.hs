@@ -1,26 +1,61 @@
+{-# LANGUAGE DeriveLift #-}
+
 module Lex (Prim(..),
             Slash(..),
             Cmplx(..),
             Lexicon,
             createLexicon,
-            toFunc) where
+            toFunc,
+            parseCmplx) where
 
 import qualified Data.Map as Map
 import Data.List
+import Control.Monad.Combinators (eitherP)
+import Text.ParserCombinators.Parsec
+import Language.Haskell.TH.Syntax
 
 type Prim  = String
-data Slash = Forw | Back deriving (Eq, Ord)
+data Slash = Forw | Back deriving (Eq, Ord, Lift)
 
 instance Show Slash where
     show Forw = "/"
     show Back = "\\"
 
 data Cmplx = CmplxLeaf Prim |
-             CmplxTree Cmplx Slash Cmplx deriving (Eq, Ord)
+             CmplxTree Cmplx Slash Cmplx deriving (Eq, Ord, Lift)
 
 instance Show Cmplx where
     show (CmplxLeaf a)     = show a
     show (CmplxTree a b c) = "(" ++ show a ++ show b ++ show c ++ ")"
+
+cmplxLeafP :: Parser Cmplx
+cmplxLeafP = do
+  cs <- many $ alphaNum
+  return $ CmplxLeaf cs
+
+cmplxP :: Parser Cmplx
+cmplxP = do
+  try $ many space
+  x <- try cmplxParensP <|> cmplxLeafP
+  try $ many space
+  res <- (char '/') `eitherP` (char '\\')
+  try $ many space
+  y <- try cmplxParensP <|> cmplxLeafP
+  try $ many space
+  case res of
+    Left  _ -> return $ CmplxTree x Forw y
+    Right _ -> return $ CmplxTree x Back y
+
+parseCmplx :: String -> Either ParseError Cmplx
+parseCmplx str = parse cmplxP "" str
+
+cmplxParensP :: Parser Cmplx
+cmplxParensP = do _ <- char '('
+                  try $ many space
+                  x <- try cmplxP
+                  try $ many space
+                  _ <- char ')'
+                  return x 
 
 newtype Func = Func [Prim]
 
